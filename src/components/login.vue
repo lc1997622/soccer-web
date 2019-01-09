@@ -8,7 +8,7 @@
 </nav> 
 <div id="back" class="img1 note page" :style ="note">    
  <div id="backimg" class="row">
-    <div class="col s3 offset-s8">
+    <div class="col l3 m5 s8 offset-s2  offset-l8 offset-m5">
       <div style="height:100px"></div>
       <transition name="fade">
       <div id="card" class="card medium card-panel hoverable">
@@ -16,11 +16,11 @@
           <div class="row">
             <form class="col s12">
               <div class="row">
-                <div class="input-field col s10 offset-s1">
+                <div class="input-field col m10 s12 l10 offset-s1 offset-m1 offset-l1">
                   <input id="username" v-model="username" type="text" class="validate">
                   <label for="username">用户名</label>
                 </div>
-                <div class="input-field col s10 offset-s1">
+                <div class="input-field col m10 s12 l10 offset-s1 offset-m1 offset-l1">
                   <input id="password" v-model="password" type="password" class="validate">
                   <label for="password">密码</label>
                 </div>
@@ -46,6 +46,8 @@
 
 <script>
 import axios from 'axios';
+import store from '@/store';
+
 export default {
   name: 'login',
   data () {
@@ -62,18 +64,24 @@ export default {
     }
   },
   methods:{ 
+
+
         login() {
             axios
-                .post("http://192.168.43.78/dologin",{
-                    username:this.username,
+                .post("http://39.96.177.173/dologin",{
+                    userid:this.username,
                     password:this.password
                 })
                 .then(Response => {
-                    console.log('dd');
+                    this.$store.state.account=Response.data.userid;
+                    this.$store.state.username=Response.data.userName;
+                    console.log(Response.data);
+                    this.$router.push('/list/'); 
                 })
                 .catch(error => {
                 console.log(error);
             });
+   
         }
     }
 }
@@ -115,7 +123,7 @@ a {
   font-size:1.2em;
 }
 #up{
-  background: rgb(0, 52, 63);
+  background: rgb(40, 148, 134);
 }
  .input-field input[type=text]:focus + label {
      font-size: 1.5em;

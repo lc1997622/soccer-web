@@ -1,6 +1,6 @@
 <template>
  <div class="page">
-    <nav class="red darken-4">
+    <nav id="up">
         <div class="nav-wrapper">
             <a class="sidenav-trigger show-on-large" @click="$router.go(-1)"><i class="material-icons">arrow_back</i></a>
             <a class="brand-logo center">{{video}}</a>
@@ -106,6 +106,9 @@ export default {
 #playcontainer {
   height: 93.4vh;
   width: 100%;
+}
+#up{
+  background: rgb(40, 148, 134);
 }
 </style>
 

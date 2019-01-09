@@ -8,7 +8,7 @@
 </nav> 
 <div id="back" class="img1 note page" :style ="note">
    <div id="backimg" class="row">
-    <div  class="col s3 offset-s8">
+    <div  class="col l3 m5 s8 offset-s1  offset-l8 offset-m5">
       <div style="height:50px"></div>
       <transition name="fade">
       <div id="card" class="card lager card-panel hoverable">
@@ -22,13 +22,14 @@
                 </div>
                
                 <div class="input-field col s10 offset-s1">
-                  <input id="password"   v-model="password" type="password" class="validate">
-                  <label for="password">密码</label>
+                  <input id="telephone" v-model="telephone" type="text" class="validate">
+                  <label for="telephone">手机号</label>
                 </div>
                 
                 <div class="input-field col s10 offset-s1">
-                  <input id="password" v-model="telephone" type="text" class="validate">
-                  <label for="password">手机号</label>
+                  <input id="password"   v-model="password" type="password" class="validate">
+                  <label for="password">密码</label>
+                  
                 </div>
                 <div class="col s10 offset-s1">
                     <label id="gender">性别</label>
@@ -45,7 +46,7 @@
         <div id="card-a" class="card-action">
           <div class="row">
             <div style="height:20px"></div>
-          <router-link to="/" id="log" class="btn-large red lighten-5 waves-effect waves-pupple col s3 offset-s8">注册</router-link>
+          <button id="log" class="btn-large red lighten-5 waves-effect waves-pupple col s3 offset-s8" @click="register" >注册</button>
           </div>   
         </div>
       </div>
@@ -72,18 +73,27 @@ export default {
           backgroundSize: "cover",
           backgroundAttachment:"fixed",  
       }, 
+      username:null,
+      password:null,
+      telephone:null,
     }
   },
     methods:{ 
-        login() {
+        register() {
             axios
-                .post("http://192.168.43.78:8080/dologin",{
-                    username:this.username,
+                .post("http://39.96.177.173/doregister",{
+                    userid:this.username,
+                    
+                    tel:this.telephone,
                     password:this.password,
-                    telephone:this.telephone
+
                 })
                 .then(Response => {
-                    console.log(this.password);
+                   if(Response.data=="OK")
+                   {
+                     M.toast({html: '注册成功'});
+                     this.$router.push('/'); 
+                   }
                 })
                 .catch(error => {
                 console.log(error);
@@ -121,7 +131,7 @@ a {
 {
     background: rgba(131, 214, 202, 0.1)
 }
-#username,#password{
+#username,#password,#telephone{
    background: rgba(255, 255, 255, 0.5)
 }
 #reg,#log,#gender{
@@ -129,7 +139,7 @@ a {
   font-size:1.2em;
 }
 #up{
-  background: rgb(0, 52, 63);
+  background: rgb(40, 148, 134);
 }
 #gender{
     font-size: 1.2em;

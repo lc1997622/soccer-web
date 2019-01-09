@@ -3,12 +3,12 @@ import Router from 'vue-router'
 import uri from 'urijs'
 import VideoList from '../components/VideoList';
 import VideoList_author from '../components/VideoList_author';
-import VideoList_viedo from '../components/VideoList_viedo';
 import Upload from '../components/Upload';
 import play from '../components/Play'
 import login from '../components/login'
 import register from '../components/register'
 import Moive from '@/components/Moive'
+import ind from '@/components/ind'
 Vue.use(Router)
 
 export default new Router({
@@ -21,7 +21,7 @@ export default new Router({
         path: uri('./list/').absoluteTo("/").toString(),
         props: true,
         component: Moive,
-        children: [{
+        children: [{ path: '/', component: ind }, {
                 name: 'channel1',
                 path: 'channel1/:category',
                 component: VideoList,
@@ -30,13 +30,13 @@ export default new Router({
             {
                 name: 'channel2',
                 path: 'channel2/:category',
-                component: VideoList_viedo,
+                component: VideoList_author,
                 props: true,
             },
             {
                 name: 'channel3',
-                path: 'channel3/:category',
-                component: VideoList_author,
+                path: 'channel2/:category',
+                component: Upload,
                 props: true,
             }
         ],
@@ -56,5 +56,16 @@ export default new Router({
         path: '/Moive',
         props: true,
         component: Moive,
+    }, {
+        name: ' Viist',
+        path: '/list',
+        props: true,
+        component: Moive,
+        children: [{
+            name: 'movie',
+            path: '/:category',
+            component: VideoList,
+            props: true,
+        }]
     }]
 })

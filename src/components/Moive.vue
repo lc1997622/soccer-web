@@ -26,18 +26,6 @@
     </li>
     <li><div class="divider"></div></li>
     <li
-      v-for="c in Categories1"
-      :key="c.Name"
-      :class="{active: c.Name == category}">
-        <router-link
-        :to="categoryLink(c)"
-        replace>{{ c.Name }}</router-link>
-    </li>
-    <li>
-       <a @click="upload()">上传视频</a>
-    </li>
-    <li><div class="divider"></div></li>
-    <li
       v-for="c in Categories2"
       :key="c.Name"
       :class="{active: c.Name == category}">
@@ -45,6 +33,16 @@
         :to="categoryLink(c)"
         replace>{{ c.Name }}</router-link>
     </li>
+    <li><div class="divider"></div></li>
+    <li
+      v-for="c in Categories1"
+      :key="c.Name"
+      :class="{active: c.Name == category}">
+        <router-link
+        :to="categoryLink(c)"
+        replace>{{ c.Name }}</router-link>
+    </li>
+    
     <li><div class="divider"></div></li>
     <li>
         <a @click="logout()">登出</a>
@@ -110,6 +108,9 @@ export default {
         },
         {
           Name: "我收藏的作者"
+        },
+        {
+          Name:"上传视频"
         }
       ],
       Categories2: [
@@ -140,7 +141,7 @@ export default {
     },
     index(){
       this.$store.commit('index');
-      this.$router.push('/Moive');
+      this.$router.push('/list/');
     },
     upload(){
       this.$store.commit('upload');
@@ -174,6 +175,6 @@ main {
   width: 93%;
 }
 #up{
-  background: rgb(0, 52, 63);
+  background:rgb(40, 148, 134);
 }
 </style>

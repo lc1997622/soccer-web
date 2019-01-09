@@ -6,29 +6,31 @@
             appear
             name = "video-list"
             mode="out-in"
-            class="row">
-            <video-detial 
+            class="row"
+            >
+            <video-detail 
                 v-for=" (c,index) in videolist"
                 :video="c"
-                :key="c.id"
-                class="col s12 m6 l4"
+                :key="c.videoid"
+                class="col s12 m6 l4 offset-s1" style=" padding: 20px"
                 @hover="selected = index"
-                @video="$emit('video', $event)"/>
+                @video="$emit('video', $event)"    
+                />
         </transition-group>
     </div>
 </template>
 
 <script>
-import VideoDetial from './Video.vue'
+import VideoDetail from './Video.vue'
 import axios from "axios";
 
 export default {
   name: "video-list",
   components:{
-      VideoDetial,
+      VideoDetail,
   },
   props: {
-    category: String
+    category: String,
   },
   data() {
     return {
@@ -37,161 +39,45 @@ export default {
     };
   },
   created(){
-       axios
-      .get("http://119.57.75.134:8080/videos")
-      .then(Response => {
-        this.videolist= Response.data;
-        console.log(this.videolist)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      this.category =  category = this.$route.params.category;
+      this.getvideos(this.$route.params.category,this.$store.state.account);
+      console.log(this.$store.state.account)
   },
   watch:{
     category:function()
     {
-      console.log(this.$route.params.category);
-      if(this.$route.params.category == '我的视频'){
-      this.videolist = [
-        {
-          id: 1,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          },
-          {
-          id: 2,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          },
-          {
-          id: 3,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-          ,
-          {
-          id: 4,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-          ,
-          {
-          id: 5,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-          ,
-          {
-          id: 6,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-      ];}
-      else{
-        this.videolist =[];
-      }
-    }
+      this.getvideos(this.$route.params.category,this.$store.state.account);
+      console.log(this.$store.state.account)
+    },
   },
   mounted()
   {
     console.log('mounted');
-      if(this.$route.params.category == '我的视频'){
-      this.videolist = [
-        {
-          id: 1,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          },
-          {
-          id: 2,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          },
-          {
-          id: 3,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-          ,
-          {
-          id: 4,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-          ,
-          {
-          id: 5,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-          ,
-          {
-          id: 6,
-          img: "http://119.57.75.134:8080/my/videos/02021.jpg",
-          jian: "资产评估",
-          kind: 1,
-          name: "资产评估",
-          path: null,
-          rpath: null,
-          url: "http://119.57.75.134:8080/my/videos/0202.mp4",
-          }
-      ];}
+  },
+  methods:{
+    getvideos:function(category,id){
+      var kind;
+      if(category == '我的视频')
+      {
+        kind = "http://39.96.177.173/mysend"
+      }
+      else if(category == '我收藏的视频')
+      {
+        kind = 'http://39.96.177.173/mycare'
+      }else if(category == '热门视频')
+      {
+        kind = 'http://39.96.177.173/videos'
+      }
+      axios
+      .post(kind,{userid :id})
+      .then(Response => {
+        console.log(Response.data);
+        this.videolist = Response.data;
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+      this.category = this.$route.params.category ;
+    },
   },
   computed:{    
   },
@@ -219,5 +105,10 @@ export default {
 .video-list-leave-active {
   transition: all 0.4s ease;
 }
+.container{
+        width: 100%; 
+        max-width: 1200px;      
+    }
+
 </style>
 

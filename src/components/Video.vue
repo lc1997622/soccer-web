@@ -1,23 +1,24 @@
 <template>
-    <div>
+
+    <div>  
+        <div style="height:50px"></div>   
         <div
-            class="card hoverable z-depth-2">
+            class="card hoverable z-depth-2"  style="width:85%">
             <div class="card-image">
-                <img 
-                :src="video.img"
-                @click="switchVideo">
-                <a 
-                    class="btn-floating halfway-fab"
-                    @click="switchVideo">
-                    <i class="material-icons red darken-4">play_arrow</i>
-                 </a>
+            <video id="video" class="responsive-video" @click="switchVideo" >
+                <source :src="video.url" type="video/mp4">
+            </video>                 
             </div>
             <div
                 class="card-content"
                 @click="switchVideo">
-                <p class="title">
-                    {{ video.name }}
-                </p>
+                <span id="title" class="card-title black-text text-darken-4">
+                    {{video.videoname}}
+                    <br>
+                    <span id="author" class="card-title grey-text  text-darken-2 right">
+                        作者：{{video.userid}}
+                    </span>
+                </span>               
             </div>
         </div>
     </div>
@@ -25,7 +26,7 @@
 
 <script scope>
 export default {
-    name:'VideoDetial',
+    name:'VideoDetail',
     props:{
         video:Object,
         selected:Boolean,
@@ -40,10 +41,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  font-size: 13px;
-}
 
+#title{
+    font-weight: bold;
+    font-size: 18px;
+}
+#author{
+    font-size:14px;
+}
 p.program-title {
   text-overflow: ellipsis;
   white-space: nowrap;
